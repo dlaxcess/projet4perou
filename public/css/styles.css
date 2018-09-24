@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
+
+header {
+    background-image: url("/images/header-background.jpg");
+    background-size: cover/*100% 100%*/;
+    color: white;
+}
+
+header h1 {
+    font-family: Ubuntu;
+    margin-left: 10px;
+}
+
+/*#generalContainer {
+
+}
+
+#generalMenu {
+
+}*/
+@media (max-width: 540px) {
+    header h1 {
+        font-size: 5vw;
+    }
+}

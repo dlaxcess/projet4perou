@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Billetterie{% endblock %}
+
+{% block body %}
+    <h1 class="well">Ceci est la page de billetterie {{ app.request.attributes.get('_route') }}</h1>
+{% endblock %}
