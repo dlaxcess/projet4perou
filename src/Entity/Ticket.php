@@ -26,6 +26,11 @@ class Ticket
      */
     private $duration;
 
+    /**
+     * @ORM\Column(name="booked", type="boolean")
+     */
+    private $booked =true;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -51,6 +56,18 @@ class Ticket
     public function setDuration(string $duration): self
     {
         $this->duration = $duration;
+
+        return $this;
+    }
+
+    public function getBooked(): ?bool
+    {
+        return $this->booked;
+    }
+
+    public function setBooked(bool $booked): self
+    {
+        $this->booked = $booked;
 
         return $this;
     }

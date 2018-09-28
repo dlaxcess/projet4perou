@@ -4,6 +4,7 @@ namespace App\Controller;
 
 
 
+use App\Services\TicketManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,6 +27,16 @@ class PageController extends AbstractController
     public function billetterie()
     {
         return $this->render('pages/billetterie.html.twig');
+    }
+
+    /**
+     * @Route("/billetterie/{dateTicket}", name="billetterie2")
+     */
+    public function billetterie2($dateTicket, TicketManager $ticketManager)
+    {
+        $ticketDuration = $ticketManager->addTicket($dateTicket);
+
+        return $this->render('pages/billetterie.html.twig', ['dateTicket' => $ticketDuration]);
     }
 
     /**
