@@ -5,5 +5,8 @@
 {% block body %}
     <h1 class="well">Ceci est la page de billetterie {{ app.request.attributes.get('_route') }}</h1>
 
-    Ticket {{ dateTicket }} ajouté
+    {% for message in app.session.flashbag.get('notice') %}
+        <p>{{ message }}</p>
+    {% endfor %}
+    {{ form(form) }}
 {% endblock %}

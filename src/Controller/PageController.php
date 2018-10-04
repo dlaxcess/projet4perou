@@ -4,8 +4,15 @@ namespace App\Controller;
 
 
 
+use App\Entity\Ticket;
+use App\Form\TicketType;
 use App\Services\TicketManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,20 +31,36 @@ class PageController extends AbstractController
     /**
      * @Route("/billetterie", name="billetterie")
      */
-    public function billetterie()
+    public function billetterie(Request $request/*, TicketManager $ticketManager*/)
     {
-        return $this->render('pages/billetterie.html.twig');
+        $ticket = new Ticket();
+
+        $form = $this->get('form.factory')->create(TicketType::class, $ticket);
+
+        /*$form = $ticketManager->form();*/
+
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($ticket);
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('notice', 'Ticket bien enregistré');
+
+            return $this->redirectToRoute('billetterie');
+        }
+
+        return $this->render('pages/billetterie.html.twig', ['form' => $form->createView()]);
     }
 
-    /**
-     * @Route("/billetterie/{dateTicket}", name="billetterie2")
-     */
-    public function billetterie2($dateTicket, TicketManager $ticketManager)
+    ///**
+     //* @Route("/billetterie/{dateTicket}", name="billetterie2")
+     //*/
+    /*public function billetterie2($dateTicket, TicketManager $ticketManager)
     {
         $ticketDuration = $ticketManager->addTicket($dateTicket);
 
         return $this->render('pages/billetterie.html.twig', ['dateTicket' => $ticketDuration]);
-    }
+    }*/
 
     /**
      * @Route("/infos-pratiques", name="infos_pratiques")

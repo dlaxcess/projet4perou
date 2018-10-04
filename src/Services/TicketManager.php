@@ -11,15 +11,26 @@ namespace App\Services;
 
 
 use App\Entity\Ticket;
+use App\Form\TicketType;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormFactoryInterface;
 
 class TicketManager
 {
     private $em;
+    private $formFactoryInterface;
 
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em, FormFactoryInterface $formFactoryInterface)
     {
         $this->em = $em;
+        $this->formFactoryInterface = $formFactoryInterface;
     }
 
     public function add()
@@ -55,5 +66,24 @@ class TicketManager
 
 
         return $ticket->getDuration();
+    }
+
+    public function form()
+    {
+        $ticket = new Ticket();
+
+        /*$formBuilder = $this->formFactoryInterface->createBuilder(FormType::class, $ticket);
+
+        $formBuilder
+            ->add('date', DateType::class)
+            ->add('duration', TextType::class)
+            ->add('booked', CheckboxType::class)
+            ->add('Réserver', SubmitType::class)
+        ;
+
+        $form = $formBuilder->getForm();*/
+        $form = $this->formFactoryInterface->create(TicketType::class, $ticket);
+
+        return $form;
     }
 }
