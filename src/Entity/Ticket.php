@@ -44,9 +44,9 @@ class Ticket
     private $booked =true;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Order", inversedBy="tickets")
+     * @ORM\ManyToOne(targetEntity="App\Entity\TicketOrder", inversedBy="tickets")
      */
-    private $order;
+    private $ticketOrder;
 
 
     public function getId(): ?int
@@ -114,14 +114,14 @@ class Ticket
         return $this;
     }
 
-    public function getOrder(): Order
+    public function getOrder(): TicketOrder
     {
-        return $this->order;
+        return $this->ticketOrder;
     }
 
-    public function setOrder(?Order $order): self
+    public function setOrder(?TicketOrder $ticketOrder): self
     {
-        $this->order = $order;
+        $this->ticketOrder = $ticketOrder;
 
         return $this;
     }

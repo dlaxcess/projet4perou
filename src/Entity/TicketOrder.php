@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\OrderRepository")
  */
-class Order
+class TicketOrder
 {
     /**
      * @ORM\Id()
@@ -34,7 +34,7 @@ class Order
     private $bookingEmail;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Ticket", mappedBy="order", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Ticket", mappedBy="order")
      */
     private $tickets;
 
@@ -107,7 +107,7 @@ class Order
     {
         if (!$this->tickets->contains($ticket)) {
             $this->tickets[] = $ticket;
-            $ticket->setOrder($this);
+            $ticket->setTicketOrder($this);
         }
 
         return $this;
@@ -118,8 +118,8 @@ class Order
         if ($this->tickets->contains($ticket)) {
             $this->tickets->removeElement($ticket);
             // set the owning side to null (unless already changed)
-            if ($ticket->getOrder() === $this) {
-                $ticket->setOrder(null);
+            if ($ticket->getTicketOrder() === $this) {
+                $ticket->setTicketOrder(null);
             }
         }
 
