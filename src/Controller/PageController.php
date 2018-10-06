@@ -6,15 +6,8 @@ namespace App\Controller;
 
 use App\Entity\Ticket;
 use App\Form\TicketType;
-use App\Services\TicketManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
@@ -31,13 +24,11 @@ class PageController extends AbstractController
     /**
      * @Route("/billetterie", name="billetterie")
      */
-    public function billetterie(Request $request/*, TicketManager $ticketManager*/)
+    public function billetterie(Request $request)
     {
         $ticket = new Ticket();
 
         $form = $this->get('form.factory')->create(TicketType::class, $ticket);
-
-        /*$form = $ticketManager->form();*/
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             $em = $this->getDoctrine()->getManager();

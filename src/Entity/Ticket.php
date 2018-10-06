@@ -19,43 +19,85 @@ class Ticket
     /**
      * @ORM\Column(type="datetime")
      */
-    private $date;
+    private $visitDate;
 
     /**
-     * @ORM\Column(type="string", length=7)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Duration")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $duration;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Rate")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $rate;
+
+    /**
+     * @ORM\Column(name="visitor_name", type="string", length=255)
+     */
+    private $visitorName;
 
     /**
      * @ORM\Column(name="booked", type="boolean")
      */
     private $booked =true;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Order", inversedBy="tickets")
+     */
+    private $order;
+
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getVisitDate(): ?\DateTimeInterface
     {
-        return $this->date;
+        return $this->visitDate;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setVisitDate(\DateTimeInterface $visitDate): self
     {
-        $this->date = $date;
+        $this->visitDate = $visitDate;
 
         return $this;
     }
 
-    public function getDuration(): ?string
+    public function getDuration(): ?Duration
     {
         return $this->duration;
     }
 
-    public function setDuration(string $duration): self
+    public function setDuration(?Duration $duration): self
     {
         $this->duration = $duration;
+
+        return $this;
+    }
+
+    public function getRate(): ?Rate
+    {
+        return $this->rate;
+    }
+
+    public function setRate(?Rate $rate): self
+    {
+        $this->rate = $rate;
+
+        return $this;
+    }
+
+    public function getVisitorName(): ?string
+    {
+        return $this->visitorName;
+    }
+
+    public function setVisitorName(string $visitorName): self
+    {
+        $this->visitorName = $visitorName;
 
         return $this;
     }
@@ -68,6 +110,18 @@ class Ticket
     public function setBooked(bool $booked): self
     {
         $this->booked = $booked;
+
+        return $this;
+    }
+
+    public function getOrder(): Order
+    {
+        return $this->order;
+    }
+
+    public function setOrder(?Order $order): self
+    {
+        $this->order = $order;
 
         return $this;
     }
