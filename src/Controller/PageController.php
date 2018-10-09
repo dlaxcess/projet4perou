@@ -28,7 +28,8 @@ class PageController extends AbstractController
     {
         $ticket = new Ticket();
 
-        $form = $this->get('form.factory')->create(TicketType::class, $ticket);
+        /*$form = $this->get('form.factory')->create(TicketType::class, $ticket);*/
+        $form = $this->createForm(TicketType::class, $ticket);
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             $em = $this->getDoctrine()->getManager();

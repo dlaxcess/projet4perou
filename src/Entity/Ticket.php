@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TicketRepository")
@@ -24,6 +25,7 @@ class Ticket
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Duration")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\Choice(callback={"DurationsAvailable", "getAvailableDurations"}, message="choose a valid duration")
      */
     private $duration;
 
@@ -41,13 +43,17 @@ class Ticket
     /**
      * @ORM\Column(name="booked", type="boolean")
      */
-    private $booked =true;
+    private $booked =false;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\TicketOrder", inversedBy="tickets")
      */
     private $ticketOrder;
 
+    public function __construct()
+    {
+        $this->visitDate = new \DateTime();
+    }
 
     public function getId(): ?int
     {
