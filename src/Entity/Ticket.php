@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TicketRepository")
@@ -25,7 +24,6 @@ class Ticket
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Duration")
      * @ORM\JoinColumn(nullable=false)
-     * @Assert\Choice(callback={"DurationsAvailable", "getAvailableDurations"}, message="choose a valid duration")
      */
     private $duration;
 

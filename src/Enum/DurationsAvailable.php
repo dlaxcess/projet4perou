@@ -12,8 +12,7 @@ namespace App\Enum;
 class DurationsAvailable
 {
     protected static $durationsTypes = [
-        'day',
-        'halfday'
+        'day', 'halfday'
     ];
 
     public static function getAvailableDurations() {

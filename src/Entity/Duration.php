@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DurationRepository")
@@ -18,6 +19,7 @@ class Duration
 
     /**
      * @ORM\Column(type="string", length=7)
+     * @Assert\Choice(callback={"DurationsAvailable", "getAvailableDurations"}, message="choose a valid duration")
      */
     private $name;
 
