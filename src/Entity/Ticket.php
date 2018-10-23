@@ -39,6 +39,11 @@ class Ticket
     private $rate;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    private $ticketPrice;
+
+    /**
      * @ORM\Column(type="datetime")
      * @ORM\JoinColumn(nullable=false)
      *
@@ -107,6 +112,18 @@ class Ticket
         return $this;
     }
 
+    public function getTicketPrice(): ?int
+    {
+        return $this->ticketPrice;
+    }
+
+    public function setTicketPrice(int $ticketPrice): self
+    {
+        $this->ticketPrice = $ticketPrice;
+
+        return $this;
+    }
+
     public function getVisitorBirthDate(): ?\DateTimeInterface
     {
         return $this->visitorBirthDate;
@@ -152,6 +169,18 @@ class Ticket
     }
 
     public function setOrder(?TicketOrder $ticketOrder): self
+    {
+        $this->ticketOrder = $ticketOrder;
+
+        return $this;
+    }
+
+    public function getTicketOrder(): ?TicketOrder
+    {
+        return $this->ticketOrder;
+    }
+
+    public function setTicketOrder(?TicketOrder $ticketOrder): self
     {
         $this->ticketOrder = $ticketOrder;
 
