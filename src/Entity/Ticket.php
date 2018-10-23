@@ -2,7 +2,10 @@
 
 namespace App\Entity;
 
+use App\Validator\Constraints\ValidVisitDate;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use App\Validator\Constraints\BeforeNoon;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TicketRepository")
@@ -18,12 +21,14 @@ class Ticket
 
     /**
      * @ORM\Column(type="datetime")
+     * @ValidVisitDate()
      */
     private $visitDate;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Duration")
      * @ORM\JoinColumn(nullable=false)
+     * @BeforeNoon()
      */
     private $duration;
 
@@ -34,7 +39,15 @@ class Ticket
     private $rate;
 
     /**
+     * @ORM\Column(type="datetime")
+     * @ORM\JoinColumn(nullable=false)
+     *
+     */
+    private $visitorBirthDate;
+
+    /**
      * @ORM\Column(name="visitor_name", type="string", length=255)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $visitorName;
 
@@ -94,6 +107,21 @@ class Ticket
         return $this;
     }
 
+    public function getVisitorBirthDate(): ?\DateTimeInterface
+    {
+        return $this->visitorBirthDate;
+    }
+
+    public function setVisitorBirthDate(\DateTimeInterface $visitorBirthDate): self
+    {
+        $this->visitorBirthDate = $visitorBirthDate;
+
+        return $this;
+    }
+
+    /**
+     * @Assert\Length(min=2, minMessage="Vous devez entrer au moins {{ limit }} caractères")
+     */
     public function getVisitorName(): ?string
     {
         return $this->visitorName;

@@ -10,4 +10,8 @@
     {% endfor %}
     {{ form(form) }}
     <!--<input type="submit" value="Réserver">-->
+
+
+    {{ dateJourModif|date('Y/m/d H:i:s') }}
+    {{ dateJour|date('Y/m/d H:i:s') }}
 {% endblock %}

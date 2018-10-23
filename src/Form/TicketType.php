@@ -29,17 +29,18 @@ class TicketType extends AbstractType
                 'choice_label' => 'name',
                 'multiple' => false
             ))
-            /*->add('duration', ChoiceType::class, array(
-                'choices' => DurationsAvailable::getAvailableDurations()
-            ))*/
             ->add('rate', EntityType::class, array(
                 'class' => Rate::class,
                 'choice_label' => 'name',
                 'multiple' => false
             ))
+            ->add('visitorBirthDate', DateType::class, array(
+                'widget' => 'single_text',
+                'html5' => false,
+                'attr' => ['class' => 'js-datepicker'],
+            ))
             ->add('visitorName', TextType::class)
             ->add('réserver', SubmitType::class)
-            /*->add('Réserver', SubmitType::class)*/
         ;
     }
 

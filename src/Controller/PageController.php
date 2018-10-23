@@ -41,18 +41,12 @@ class PageController extends AbstractController
             return $this->redirectToRoute('billetterie');
         }
 
-        return $this->render('pages/billetterie.html.twig', ['form' => $form->createView()]);
+        $dateJourModif = new \DateTime();
+        $dateJourModif->setTime(14, 0);
+        $dateJour = new \DateTime('now', new \DateTimeZone('America/Argentina/Ushuaia'));
+
+        return $this->render('pages/billetterie.html.twig', ['form' => $form->createView(), 'dateJour' => $dateJour, 'dateJourModif' => $dateJourModif]);
     }
-
-    ///**
-     //* @Route("/billetterie/{dateTicket}", name="billetterie2")
-     //*/
-    /*public function billetterie2($dateTicket, TicketManager $ticketManager)
-    {
-        $ticketDuration = $ticketManager->addTicket($dateTicket);
-
-        return $this->render('pages/billetterie.html.twig', ['dateTicket' => $ticketDuration]);
-    }*/
 
     /**
      * @Route("/infos-pratiques", name="infos_pratiques")
