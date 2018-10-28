@@ -34,7 +34,7 @@ class TicketOrder
     private $bookingEmail;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Ticket", mappedBy="order")
+     * @ORM\OneToMany(targetEntity="App\Entity\Ticket", mappedBy="ticketOrder")
      */
     private $tickets;
 

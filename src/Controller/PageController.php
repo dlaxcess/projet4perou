@@ -9,6 +9,7 @@ use App\Form\TicketType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Services\TicketPriceGenerator;
 
 
 class PageController extends AbstractController
@@ -24,7 +25,7 @@ class PageController extends AbstractController
     /**
      * @Route("/billetterie", name="billetterie")
      */
-    public function billetterie(Request $request)
+    public function billetterie(Request $request, TicketPriceGenerator $priceGenerator)
     {
         $ticket = new Ticket();
 
@@ -32,6 +33,7 @@ class PageController extends AbstractController
         $form = $this->createForm(TicketType::class, $ticket);
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+            $ticket->setTicketPrice($priceGenerator->generatePrice($ticket));
             $em = $this->getDoctrine()->getManager();
             $em->persist($ticket);
             $em->flush();

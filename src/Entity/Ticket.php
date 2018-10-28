@@ -33,10 +33,9 @@ class Ticket
     private $duration;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Rate")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Discounts")
      */
-    private $rate;
+    private $discount;
 
     /**
      * @ORM\Column(type="integer")
@@ -45,14 +44,19 @@ class Ticket
 
     /**
      * @ORM\Column(type="datetime")
-     * @ORM\JoinColumn(nullable=false)
      *
      */
     private $visitorBirthDate;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $visitorFirstName;
+
+    /**
      * @ORM\Column(name="visitor_name", type="string", length=255)
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\Length(min=2, minMessage="Vous devez entrer au moins {{ limit }} caractères")
      */
     private $visitorName;
 
@@ -112,6 +116,18 @@ class Ticket
         return $this;
     }
 
+    public function getDiscount(): ?Discounts
+    {
+        return $this->discount;
+    }
+
+    public function setDiscount(?Discounts $discount): self
+    {
+        $this->discount = $discount;
+
+        return $this;
+    }
+
     public function getTicketPrice(): ?int
     {
         return $this->ticketPrice;
@@ -136,9 +152,18 @@ class Ticket
         return $this;
     }
 
-    /**
-     * @Assert\Length(min=2, minMessage="Vous devez entrer au moins {{ limit }} caractères")
-     */
+    public function getVisitorFirstName(): ?string
+    {
+        return $this->visitorFirstName;
+    }
+
+    public function setVisitorFirstName(?string $visitorFirstName): self
+    {
+        $this->visitorFirstName = $visitorFirstName;
+
+        return $this;
+    }
+
     public function getVisitorName(): ?string
     {
         return $this->visitorName;
@@ -163,18 +188,6 @@ class Ticket
         return $this;
     }
 
-    public function getOrder(): TicketOrder
-    {
-        return $this->ticketOrder;
-    }
-
-    public function setOrder(?TicketOrder $ticketOrder): self
-    {
-        $this->ticketOrder = $ticketOrder;
-
-        return $this;
-    }
-
     public function getTicketOrder(): ?TicketOrder
     {
         return $this->ticketOrder;
@@ -186,4 +199,5 @@ class Ticket
 
         return $this;
     }
+
 }

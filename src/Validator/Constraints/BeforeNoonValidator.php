@@ -33,9 +33,9 @@ class BeforeNoonValidator extends ConstraintValidator
 
         $dateTime = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
 
-        $dayDuration = $this->em->getRepository(Duration::class)->findOneBy(['name' => 'day']);
+        /*$dayDuration = $this->em->getRepository(Duration::class)->findOneBy(['name' => 'day']);*/
 
-        if ($datePm < $dateTime AND $value == $dayDuration) {
+        if ($datePm < $dateTime && $value->getName() == 'day') {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ duration }}', $value->getName())
                 ->addViolation();
