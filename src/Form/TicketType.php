@@ -25,9 +25,11 @@ class TicketType extends AbstractType
                 'multiple' => false
             ))
             ->add('discount', EntityType::class, array(
-                'class' => Discounts::class,
-                'choice_label' => 'discountName',
-                'multiple' => false
+                'class'        => Discounts::class,
+                'choice_label' => function(Discounts $discounts) {
+                            return $discounts->getDiscountName() . ' : ' . $discounts->getDiscountDescription();
+                            },
+                'multiple'     => false
             ))
             ->add('visitorBirthDate', DateType::class, array(
                 'widget' => 'single_text',

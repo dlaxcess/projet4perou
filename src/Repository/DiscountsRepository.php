@@ -19,6 +19,12 @@ class DiscountsRepository extends ServiceEntityRepository
         parent::__construct($registry, Discounts::class);
     }
 
+
+    public function discountNameDescription () {
+
+    }
+
+
 //    /**
 //     * @return Discounts[] Returns an array of Discounts objects
 //     */

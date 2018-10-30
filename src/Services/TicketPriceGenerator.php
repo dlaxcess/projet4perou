@@ -44,15 +44,15 @@ class TicketPriceGenerator
 
         if ($discount != null) {
 
-            if ($discountValue > 0) {
+            if ($discountValue >= 1 && $this->ticketPrice > $discountValue) {
                 $this->ticketPrice = $discountValue;
             }
 
-            if ($discountValue < 0) {
-                $this->ticketPrice -= $discountValue;
+            if ($discountValue < 0 && $this->ticketPrice > abs($discountValue)) {
+                $this->ticketPrice += $discountValue;
             }
 
-            if ($discountValue < 0 ) {
+            if ($discountValue > 0 && $discountValue < 1) {
                 $this->ticketPrice = $this->ticketPrice * $discountValue;
             }
         }
