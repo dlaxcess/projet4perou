@@ -10,8 +10,8 @@ namespace App\Services;
 
 
 use App\Entity\AgesPrices;
-use App\Entity\Discounts;
 use App\Entity\Ticket;
+use App\Entity\TicketOrder;
 use Doctrine\ORM\EntityManagerInterface;
 
 class TicketPriceGenerator
@@ -22,6 +22,15 @@ class TicketPriceGenerator
     public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
+    }
+
+    public function setTicketCollectionPrices(TicketOrder $ticketOrder)
+    {
+        $ticketCollection = $ticketOrder->getTickets();
+
+        foreach ($ticketCollection as $ticket) {
+            $ticket->setTicketPrice($this->generatePrice($ticket));
+        }
     }
 
     public function generatePrice(Ticket $ticket)
@@ -36,7 +45,6 @@ class TicketPriceGenerator
             if ($agePrice->getMinAge() <= $visitorAge) {
                 $this->ticketPrice = $agePrice->getTicketPrice();
             }
-
         }
 
         $discount = $ticket->getDiscount();
@@ -57,17 +65,7 @@ class TicketPriceGenerator
             }
         }
 
-        echo $this->ticketPrice;
-        die();
+        return $this->ticketPrice;
 
-
-
-        $ticketRates = [
-            [0, 0],
-            [4, 8],
-            [12, 16],
-            [60, 12],
-            ['tarif réduit', 10]
-        ];
     }
 }

@@ -20,10 +20,6 @@ class DiscountsRepository extends ServiceEntityRepository
     }
 
 
-    public function discountNameDescription () {
-
-    }
-
 
 //    /**
 //     * @return Discounts[] Returns an array of Discounts objects

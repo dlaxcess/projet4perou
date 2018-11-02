@@ -5,6 +5,8 @@ namespace App\Controller;
 
 
 use App\Entity\Ticket;
+use App\Entity\TicketOrder;
+use App\Form\TicketOrderType;
 use App\Form\TicketType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,17 +27,33 @@ class PageController extends AbstractController
     /**
      * @Route("/billetterie", name="billetterie")
      */
-    public function billetterie(Request $request, TicketPriceGenerator $priceGenerator)
+    public function billetterie(Request $request, TicketPriceGenerator $ticketPriceGenerator)
     {
         $ticket = new Ticket();
+        $ticketOrder = new TicketOrder();
 
-        /*$form = $this->get('form.factory')->create(TicketType::class, $ticket);*/
-        $form = $this->createForm(TicketType::class, $ticket);
+        /*$form = $this->createForm(TicketType::class, $ticket);
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-            $ticket->setTicketPrice($priceGenerator->generatePrice($ticket));
+            $ticket->setTicketPrice($ticketPriceGenerator->generatePrice($ticket));
             $em = $this->getDoctrine()->getManager();
             $em->persist($ticket);
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('notice', 'Ticket bien enregistré');
+
+            return $this->redirectToRoute('billetterie');
+        }*/
+
+
+        $form = $this->createForm(TicketOrderType::class, $ticketOrder);
+
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+
+            $ticketPriceGenerator->setTicketCollectionPrices($ticketOrder);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($ticketOrder);
             $em->flush();
 
             $request->getSession()->getFlashBag()->add('notice', 'Ticket bien enregistré');

@@ -38,7 +38,7 @@ class Ticket
     private $discount;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $ticketPrice;
 

@@ -24,7 +24,7 @@ class TicketOrder
     private $orderDate;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $bookingCode;
 
@@ -34,23 +34,24 @@ class TicketOrder
     private $bookingEmail;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Ticket", mappedBy="ticketOrder")
+     * @ORM\OneToMany(targetEntity="App\Entity\Ticket", mappedBy="ticketOrder", cascade={"persist"})
      */
     private $tickets;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true)
      */
     private $totalPrice;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $ticketAmount;
 
     public function __construct()
     {
         $this->orderDate = new \DateTime();
+
         $this->tickets = new ArrayCollection();
     }
 
