@@ -13,6 +13,7 @@ use App\Entity\AgesPrices;
 use App\Entity\Ticket;
 use App\Entity\TicketOrder;
 use Doctrine\ORM\EntityManagerInterface;
+use PhpParser\Node\Scalar\String_;
 
 class TicketPriceGenerator
 {
@@ -28,15 +29,16 @@ class TicketPriceGenerator
     public function setTicketCollectionPrices(TicketOrder $ticketOrder)
     {
         $ticketCollection = $ticketOrder->getTickets();
+        $ticketOrderDuration = $ticketOrder->getDuration()->getName();
 
         foreach ($ticketCollection as $ticket) {
-            $ticketPrice = $this->generatePrice($ticket);
+            $ticketPrice = $this->generatePrice($ticket, $ticketOrderDuration);
             $ticket->setTicketPrice($ticketPrice);
             $this->ticketOrderTotPrice += $ticketPrice;
         }
     }
 
-    public function generatePrice(Ticket $ticket)
+    public function generatePrice(Ticket $ticket, string $ticketOrderDuration)
     {
         $agesPrices = $this->em->getRepository(AgesPrices::class)->findAll();
 
@@ -66,6 +68,11 @@ class TicketPriceGenerator
             if ($discountValue > 0 && $discountValue < 1) {
                 $this->ticketPrice = $this->ticketPrice * $discountValue;
             }
+        }
+
+
+        if ($ticketOrderDuration == 'halfday') {
+            $this->ticketPrice = $this->ticketPrice/2;
         }
 
         return $this->ticketPrice;

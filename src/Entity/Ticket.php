@@ -55,6 +55,12 @@ class Ticket
      */
     private $ticketOrder;
 
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     * @Assert\NotBlank
+     */
+    private $country;
+
     public function __construct()
     {
 
@@ -145,6 +151,18 @@ class Ticket
     public function setTicketOrder(?TicketOrder $ticketOrder): self
     {
         $this->ticketOrder = $ticketOrder;
+
+        return $this;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?string $country): self
+    {
+        $this->country = $country;
 
         return $this;
     }
