@@ -9,18 +9,20 @@
         <p>{{ message }}</p>
     {% endfor %}
 
-
-
     {{ form(form) }}
-    <!--<input type="submit" value="Réserver">-->
+    {#{{ form_row(form.tickets) }}#}
+    {#{{ form_start(form) }}#}
 
-    {{ form_row(form.tickets) }}
+
+    {#<input type="submit" value="Réserver">#}
+
+    {#{{ form_end(form) }}#}
+
 
     <a href="#" id="add_ticket" class="btn btn-default">Ajouter un ticket</a>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
-    // Voici le script en question :
     <script type="text/javascript">
         $(document).ready(function() {
             // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.

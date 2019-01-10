@@ -7,11 +7,11 @@ namespace App\Controller;
 use App\Entity\Ticket;
 use App\Entity\TicketOrder;
 use App\Form\TicketOrderType;
-use App\Form\TicketType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Services\TicketPriceGenerator;
+use App\Services\AutoOrderValGenerator;
 
 
 class PageController extends AbstractController
@@ -27,7 +27,7 @@ class PageController extends AbstractController
     /**
      * @Route("/billetterie", name="billetterie")
      */
-    public function billetterie(Request $request, TicketPriceGenerator $ticketPriceGenerator)
+    public function billetterie(Request $request, TicketPriceGenerator $ticketPriceGenerator, AutoOrderValGenerator $autoOrderValGenerator)
     {
         $ticket = new Ticket();
         $ticketOrder = new TicketOrder();
@@ -51,6 +51,10 @@ class PageController extends AbstractController
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
 
             $ticketPriceGenerator->setTicketCollectionPrices($ticketOrder);
+
+            $ticketOrder->setTotalPrice($ticketPriceGenerator->getTotalOrderPrice());
+
+//            $ticketOrder->setBookingCode($autoOrderValGenerator->generateBookingCode($ticketOrder));
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($ticketOrder);

@@ -5,6 +5,8 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Validator\Constraints\ValidVisitDate;
+use App\Validator\Constraints\BeforeNoon;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\OrderRepository")
@@ -29,6 +31,19 @@ class TicketOrder
     private $bookingCode;
 
     /**
+     * @ORM\Column(type="datetime")
+     * @ValidVisitDate()
+     */
+    private $visitDate;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Duration")
+     * @ORM\JoinColumn(nullable=false)
+     * @BeforeNoon()
+     */
+    private $duration;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $bookingEmail;
@@ -43,14 +58,12 @@ class TicketOrder
      */
     private $totalPrice;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $ticketAmount;
 
     public function __construct()
     {
         $this->orderDate = new \DateTime();
+
+        $this->bookingCode = date_format($this->orderDate, 'Ymd') . 'LVR' . md5(uniqid());
 
         $this->tickets = new ArrayCollection();
     }
@@ -80,6 +93,30 @@ class TicketOrder
     public function setBookingCode(string $bookingCode): self
     {
         $this->bookingCode = $bookingCode;
+
+        return $this;
+    }
+
+    public function getVisitDate(): ?\DateTimeInterface
+    {
+        return $this->visitDate;
+    }
+
+    public function setVisitDate(\DateTimeInterface $visitDate): self
+    {
+        $this->visitDate = $visitDate;
+
+        return $this;
+    }
+
+    public function getDuration(): ?Duration
+    {
+        return $this->duration;
+    }
+
+    public function setDuration(?Duration $duration): self
+    {
+        $this->duration = $duration;
 
         return $this;
     }
@@ -135,18 +172,6 @@ class TicketOrder
     public function setTotalPrice(float $totalPrice): self
     {
         $this->totalPrice = $totalPrice;
-
-        return $this;
-    }
-
-    public function getTicketAmount(): ?int
-    {
-        return $this->ticketAmount;
-    }
-
-    public function setTicketAmount(int $ticketAmount): self
-    {
-        $this->ticketAmount = $ticketAmount;
 
         return $this;
     }

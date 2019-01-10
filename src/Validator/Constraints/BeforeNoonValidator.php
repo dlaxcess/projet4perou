@@ -8,7 +8,6 @@
 
 namespace App\Validator\Constraints;
 
-use App\Entity\Duration;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -31,11 +30,13 @@ class BeforeNoonValidator extends ConstraintValidator
         $datePm = new \DateTime();
         $datePm->setTime(14, 0);
 
+        $visitDate = $this->context->getObject()->getVisitDate();
+
+
         $dateTime = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
 
-        /*$dayDuration = $this->em->getRepository(Duration::class)->findOneBy(['name' => 'day']);*/
 
-        if ($datePm < $dateTime && $value->getName() == 'day') {
+        if ($datePm < $dateTime && $value->getName() == 'day' && $visitDate <= $dateTime) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ duration }}', $value->getName())
                 ->addViolation();

@@ -18,6 +18,7 @@ class TicketPriceGenerator
 {
     private $em;
     private $ticketPrice = 0;
+    private $ticketOrderTotPrice = 0;
 
     public function __construct(EntityManagerInterface $em)
     {
@@ -29,7 +30,9 @@ class TicketPriceGenerator
         $ticketCollection = $ticketOrder->getTickets();
 
         foreach ($ticketCollection as $ticket) {
-            $ticket->setTicketPrice($this->generatePrice($ticket));
+            $ticketPrice = $this->generatePrice($ticket);
+            $ticket->setTicketPrice($ticketPrice);
+            $this->ticketOrderTotPrice += $ticketPrice;
         }
     }
 
@@ -67,5 +70,9 @@ class TicketPriceGenerator
 
         return $this->ticketPrice;
 
+    }
+
+    public function getTotalOrderPrice() {
+        return $this->ticketOrderTotPrice;
     }
 }
