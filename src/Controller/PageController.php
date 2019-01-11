@@ -83,15 +83,6 @@ class PageController extends AbstractController
     public function menu(Request $request)
     {
 
-        /*$router = $this->get('router');
-        $routes = $router->getRouteCollection()->all();
-        $paths = [];
-
-        foreach ($routes as $route) {
-            $paths[] = $route->getDefaults();
-        }
-        var_dump($paths);die;*/
-
         $pageControllerMethods = get_class_methods($this);
         $menuItems = array();
 
