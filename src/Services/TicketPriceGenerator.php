@@ -13,7 +13,6 @@ use App\Entity\AgesPrices;
 use App\Entity\Ticket;
 use App\Entity\TicketOrder;
 use Doctrine\ORM\EntityManagerInterface;
-use PhpParser\Node\Scalar\String_;
 
 class TicketPriceGenerator
 {

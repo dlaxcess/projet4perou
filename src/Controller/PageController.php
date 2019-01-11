@@ -29,22 +29,7 @@ class PageController extends AbstractController
      */
     public function billetterie(Request $request, TicketPriceGenerator $ticketPriceGenerator, AutoOrderValGenerator $autoOrderValGenerator)
     {
-        $ticket = new Ticket();
         $ticketOrder = new TicketOrder();
-
-        /*$form = $this->createForm(TicketType::class, $ticket);
-
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-            $ticket->setTicketPrice($ticketPriceGenerator->generatePrice($ticket));
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($ticket);
-            $em->flush();
-
-            $request->getSession()->getFlashBag()->add('notice', 'Ticket bien enregistré');
-
-            return $this->redirectToRoute('billetterie');
-        }*/
-
 
         $form = $this->createForm(TicketOrderType::class, $ticketOrder);
 
@@ -60,7 +45,7 @@ class PageController extends AbstractController
             $em->persist($ticketOrder);
             $em->flush();
 
-            $request->getSession()->getFlashBag()->add('notice', 'Ticket bien enregistré');
+            $request->getSession()->getFlashBag()->add('notice', 'Commande bien enregistrée');
 
             return $this->redirectToRoute('billetterie');
         }

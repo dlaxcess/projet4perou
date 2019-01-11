@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Validator\Constraints\ThousandLimit;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -33,6 +34,7 @@ class TicketOrder
     /**
      * @ORM\Column(type="datetime")
      * @ValidVisitDate()
+     * @ThousandLimit()
      */
     private $visitDate;
 

@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Ubuntu');
 
 header {
-    background-image: url("/images/header-background.jpg");
+    background-image: url("../images/header-background.jpg");
     background-size: cover/*100% 100%*/;
     color: white;
 }
@@ -11,12 +11,6 @@ header h1 {
     margin-left: 10px;
 }
 
-/*#generalContainer {
-
-}
-
-#generalMenu {
-}*/
 
 #pageContainer {
     margin-top: 10em;
@@ -25,7 +19,7 @@ header h1 {
 
 
 
-/* datepicker bootstrap (visitorBirthDate) */
+/* datepicker (visitDate) */
 .datepicker {
     z-index: 2000!important;
 }
