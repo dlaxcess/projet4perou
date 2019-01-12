@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Validator\Constraints\ValidVisitDate;
 use App\Validator\Constraints\BeforeNoon;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\OrderRepository")
@@ -33,6 +34,7 @@ class TicketOrder
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\GreaterThanOrEqual("today midnight", message = "Vous ne pouvez réserver un billet avant le {{ compared_value }}")
      * @ValidVisitDate()
      * @ThousandLimit()
      */

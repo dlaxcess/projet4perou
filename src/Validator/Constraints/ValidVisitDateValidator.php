@@ -8,7 +8,6 @@
 
 namespace App\Validator\Constraints;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
@@ -20,11 +19,44 @@ class ValidVisitDateValidator extends ConstraintValidator
             return;
         }
 
-        $presentDate = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
-        $presentDate->setTime(0,0);
+        /* Not Sunday Validator */
+        $weekDay = date('D', $value->getTimestamp());
 
-        if ($value < $presentDate) {
-            $this->context->buildViolation($constraint->message)
+        if ($weekDay == 'Sun') {
+            $this->context->buildViolation($constraint->messageSun)
+                ->addViolation();
+        }
+
+        /* Not Holiday Validator */
+        $visitDateTimestamp = $value->getTimestamp();
+        $visitYear = date('Y', $visitDateTimestamp);
+
+        $easterDate  = easter_date($visitYear);
+        $easterDay   = date('j', $easterDate);
+        $easterMonth = date('n', $easterDate);
+        $easterYear   = date('Y', $easterDate);
+
+        $holidays = array(
+            // Dates fixes
+            mktime(0, 0, 0, 1,  1,  $visitYear),  // 1er janvier
+            mktime(0, 0, 0, 5,  1,  $visitYear),  // Fête du travail
+            mktime(0, 0, 0, 5,  8,  $visitYear),  // Victoire des alliés
+            mktime(0, 0, 0, 7,  14, $visitYear),  // Fête nationale
+            mktime(0, 0, 0, 8,  15, $visitYear),  // Assomption
+            mktime(0, 0, 0, 11, 1,  $visitYear),  // Toussaint
+            mktime(0, 0, 0, 11, 11, $visitYear),  // Armistice
+            mktime(0, 0, 0, 12, 25, $visitYear),  // Noel
+
+            // Dates variables
+            mktime(0, 0, 0, $easterMonth, $easterDay + 1,  $easterYear),
+            mktime(0, 0, 0, $easterMonth, $easterDay + 39, $easterYear),
+            mktime(0, 0, 0, $easterMonth, $easterDay + 50, $easterYear),
+        );
+
+        sort($holidays);
+
+        if (in_array($visitDateTimestamp, $holidays, true)) {
+            $this->context->buildViolation($constraint->messageHolidays)
                 ->addViolation();
         }
     }

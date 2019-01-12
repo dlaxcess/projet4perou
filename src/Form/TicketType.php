@@ -34,6 +34,7 @@ class TicketType extends AbstractType
                             return $discounts->getDiscountName() . ' : ' . $discounts->getDiscountDescription();
                             },
                 'multiple'     => false,
+                'help' => 'Vous devrez présenter un justificatif correspondant à la réduction choisie à l\'entrée du musée pour en bénéficier ',
             ))
             ->add('country', CountryType::class, array(
                 'placeholder' => 'Indiquez votre pays',

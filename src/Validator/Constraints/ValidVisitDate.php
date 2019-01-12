@@ -16,4 +16,6 @@ use Symfony\Component\Validator\Constraint;
 class ValidVisitDate extends Constraint
 {
     public $message = 'The visit date can\'t be in the past';
+    public $messageSun = 'Vous ne pouvez réserver de billet pour le dimanche';
+    public $messageHolidays = 'Vous ne pouvez réserver de billet pour un jour férié';
 }
