@@ -9,41 +9,42 @@
 namespace App\Services;
 
 
-use App\Entity\AgesPrices;
 use App\Entity\Ticket;
 use App\Entity\TicketOrder;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\AgesPricesRepository;
 
 class TicketPriceGenerator
 {
-    private $em;
+    private $agePricesRepository;
     private $ticketPrice = 0;
     private $ticketOrderTotPrice = 0;
 
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(AgesPricesRepository $APRepo)
     {
-        $this->em = $em;
+        $this->agePricesRepository = $APRepo;
     }
 
     public function setTicketCollectionPrices(TicketOrder $ticketOrder)
     {
         $ticketCollection = $ticketOrder->getTickets();
-        $ticketOrderDuration = $ticketOrder->getDuration()->getName();
 
         foreach ($ticketCollection as $ticket) {
-            $ticketPrice = $this->generatePrice($ticket, $ticketOrderDuration);
+            $ticketPrice = $this->generatePrice($ticket);
             $ticket->setTicketPrice($ticketPrice);
             $this->ticketOrderTotPrice += $ticketPrice;
         }
     }
 
-    public function generatePrice(Ticket $ticket, string $ticketOrderDuration)
+    public function generatePrice(Ticket $ticket)
     {
-        $agesPrices = $this->em->getRepository(AgesPrices::class)->findAll();
+        $agesPrices = $this->agePricesRepository->findAll();
 
         $today = new \DateTime();
         $visitorAge = $ticket->getVisitorBirthDate()->diff($today)->y;
 
+        $ticketOrderDuration = $ticket->getTicketOrder()->getDuration()->getName();
+
+        // Price with Age
         foreach ($agesPrices as $agePrice) {
 
             if ($agePrice->getMinAge() <= $visitorAge) {
@@ -51,26 +52,41 @@ class TicketPriceGenerator
             }
         }
 
+        // Price with discount
         $discount = $ticket->getDiscount();
         $discountValue = $ticket->getDiscount()->getDiscountValue();
 
-        if ($discount != null) {
+        if ($discount) {
 
-            if ($discountValue >= 1 && $this->ticketPrice > $discountValue) {
-                $this->ticketPrice = $discountValue;
+            switch (true) {
+                case ($discountValue >= 1 && $this->ticketPrice > $discountValue):
+                    $this->ticketPrice = $discountValue;
+                    break;
+                case ($discountValue < 0 && $this->ticketPrice > abs($discountValue)):
+                    $this->ticketPrice += $discountValue;
+                    break;
+                case ($discountValue > 0 && $discountValue < 1):
+                    $this->ticketPrice = $this->ticketPrice * $discountValue;
+                    break;
+                default:
+                    break;
             }
 
-            if ($discountValue < 0 && $this->ticketPrice > abs($discountValue)) {
-                $this->ticketPrice += $discountValue;
-            }
-
-            if ($discountValue > 0 && $discountValue < 1) {
-                $this->ticketPrice = $this->ticketPrice * $discountValue;
-            }
+//            if ($discountValue >= 1 && $this->ticketPrice > $discountValue) {
+//                $this->ticketPrice = $discountValue;
+//            }
+//
+//            if ($discountValue < 0 && $this->ticketPrice > abs($discountValue)) {
+//                $this->ticketPrice += $discountValue;
+//            }
+//
+//            if ($discountValue > 0 && $discountValue < 1) {
+//                $this->ticketPrice = $this->ticketPrice * $discountValue;
+//            }
         }
 
-
-        if ($ticketOrderDuration == 'halfday') {
+        /* Price by visit duration */
+        if ('halfday' == $ticketOrderDuration) {
             $this->ticketPrice = $this->ticketPrice/2;
         }
 

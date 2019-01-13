@@ -19,6 +19,18 @@ class TicketRepository extends ServiceEntityRepository
         parent::__construct($registry, Ticket::class);
     }
 
+
+    public function getOneDateTicketAmount(\Datetime $visitDate)
+    {
+        return $this->createQueryBuilder('t')
+            ->innerJoin('t.ticketOrder', 'tO', 'WITH', 'tO.visitDate = :visitDate')
+            ->setParameter('visitDate', $visitDate)
+            ->select('COUNT(t)')
+            ->getQuery()
+            ->getSingleScalarResult()
+            ;
+    }
+
 //    /**
 //     * @return Ticket[] Returns an array of Ticket objects
 //     */
