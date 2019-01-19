@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Validation de la commande{% endblock %}
+
+{% block body %}
+
+    {% for message in app.session.flashbag.get('error') %}
+        <p>{{ message }}</p>
+    {% endfor %}
+
+    <form action="{{ path('order_checkout') }}" method="POST">
+        <script
+                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                data-key="pk_test_PH40Dvq2u7OBi6C3oA2rvZXe"
+                data-amount="{{ 100*ticketOrder.totalPrice }}"
+                data-name="Louvre"
+                data-description="Paiement de votre commande"
+                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                data-locale="auto"
+                data-currency="eur"
+                data-email="{{ ticketOrder.bookingEmail }}">
+        </script>
+    </form>
+{% endblock %}

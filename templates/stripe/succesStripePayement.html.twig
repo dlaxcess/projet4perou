@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Paiement commande accepté{% endblock %}
+
+{% block body %}
+    {% for message in app.session.flashbag.get('success') %}
+        <p>{{ message }}</p>
+    {% endfor %}
+
+    {#{{ dump(ticketOrder) }}#}
+
+    <div>
+        <a href="{{ path('homepage') }}">Retour à l'accueil</a>
+    </div>
+{% endblock %}

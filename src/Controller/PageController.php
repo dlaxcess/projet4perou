@@ -9,9 +9,10 @@ use App\Entity\TicketOrder;
 use App\Form\TicketOrderType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Services\TicketPriceGenerator;
-use App\Services\AutoOrderValGenerator;
+use App\Services\TicketOrderRefactorer;
 
 
 class PageController extends AbstractController
@@ -27,7 +28,7 @@ class PageController extends AbstractController
     /**
      * @Route("/billetterie", name="billetterie")
      */
-    public function billetterie(Request $request, TicketPriceGenerator $ticketPriceGenerator, AutoOrderValGenerator $autoOrderValGenerator)
+    public function billetterie(Request $request, TicketPriceGenerator $ticketPriceGenerator, SessionInterface $session)
     {
         $ticketOrder = new TicketOrder();
 
@@ -39,15 +40,15 @@ class PageController extends AbstractController
 
             $ticketOrder->setTotalPrice($ticketPriceGenerator->getTotalOrderPrice());
 
-//            $ticketOrder->setBookingCode($autoOrderValGenerator->generateBookingCode($ticketOrder));
+            $session->set('ticketOrder', $ticketOrder);
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($ticketOrder);
-            $em->flush();
+//
+//
+//            $request->getSession()->getFlashBag()->add('notice', 'Commande bien enregistrée');
+//
+//            return $this->redirectToRoute('billetterie');
+            return $this->redirectToRoute('prepareOrder');
 
-            $request->getSession()->getFlashBag()->add('notice', 'Commande bien enregistrée');
-
-            return $this->redirectToRoute('billetterie');
         }
 
         $dateJourModif = new \DateTime();
