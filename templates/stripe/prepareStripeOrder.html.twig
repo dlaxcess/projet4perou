@@ -8,6 +8,16 @@
         <p>{{ message }}</p>
     {% endfor %}
 
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                Vous êtes sur le point de réserver {{ ticketOrder.tickets|length }} ticket(s).
+                Date de visite : {{ ticketOrder.visitDate|date("d/m/Y") }}
+                Durée de la visite : {% if ticketOrder.duration.name == "day" %}Journée{% else %}Demie journée{% endif %}
+            </div>
+        </div>
+    </div>
+
     <form action="{{ path('order_checkout') }}" method="POST">
         <script
                 src="https://checkout.stripe.com/checkout.js" class="stripe-button"
