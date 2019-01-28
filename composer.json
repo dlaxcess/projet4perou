@@ -22,17 +22,18 @@
         "symfony/twig-bundle": "*",
         "symfony/validator": "*",
         "symfony/web-link": "*",
-        "symfony/yaml": "*"
+        "symfony/yaml": "*",
+        "twig/extensions": "^1.5"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.0",
+        "stripe/stripe-php": "6.*",
         "symfony/debug-pack": "*",
-        "symfony/dotenv": "*",
+        "symfony/dotenv": "4.1.*",
         "symfony/maker-bundle": "^1.0",
         "symfony/profiler-pack": "*",
         "symfony/test-pack": "*",
-        "symfony/web-server-bundle": "*",
-        "stripe/stripe-php": "6.*"
+        "symfony/web-server-bundle": "*"
     },
     "config": {
         "preferred-install": {

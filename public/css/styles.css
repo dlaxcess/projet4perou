@@ -9,6 +9,10 @@ header {
 header h1 {
     font-family: Ubuntu;
     margin-left: 10px;
+    /*margin-top: 0px;*/
+    /*margin-bottom: 0px;*/
+    /*padding-top: 20px;*/
+    /*padding-bottom: 10px;*/
 }
 
 
@@ -16,6 +20,7 @@ header h1 {
     margin-top: 10em;
     margin-bottom: 3em;
 }
+
 
 
 

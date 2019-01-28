@@ -33,8 +33,9 @@ class TicketOrderRefactorer
         $this->discountsArray = $this->discountsRepo->findAll();
         $ticketCollection = $ticketOrder->getTickets();
 
+        /*$tab = ['normal' => $this->discountsArray[0]];*/
         foreach ($ticketCollection as $ticket) {
-            $ticket->setDiscount($this->discountsArray[$ticket->getDiscount()->getId()-1]);
+            $ticket->setDiscount(/*$tab[$ticket->getDiscount()->getDiscountName()]*/$this->discountsArray[$ticket->getDiscount()->getId()-1]);
 //            foreach ($this->discountsArray as $discount) {
 //                if ($ticket->getDiscount() == $discount) {
 //                    $ticket->setDiscount($discount);

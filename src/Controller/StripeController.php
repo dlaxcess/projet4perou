@@ -15,6 +15,7 @@ use App\Repository\DiscountsRepository;
 use App\Repository\DurationRepository;
 use App\Services\TicketOrderRefactorer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -42,7 +43,12 @@ class StripeController extends AbstractController
     {
         $ticketOrder = $session->get('ticketOrder');
 
-        \Stripe\Stripe::setApiKey("sk_test_MABCnPT0mDA3EZ9ZbjEV3BZE");
+        $dotenv = new Dotenv();
+        $dotenv->load(__DIR__.'/../../.env');
+
+        $stripeKey = getenv('STRIPE_KEY');
+
+        \Stripe\Stripe::setApiKey($stripeKey);
 
 // Token is created using Checkout or Elements!
 // Get the payment token ID submitted by the form:
