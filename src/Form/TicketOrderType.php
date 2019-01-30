@@ -22,6 +22,7 @@ class TicketOrderType extends AbstractType
                 'widget' => 'single_text',
                 'html5' => false,
                 'attr' => ['class' => 'js-datepicker'],
+                'label' => 'Date de la visite',
             ))
             ->add('duration', EntityType::class, array(
                 'class' => Duration::class,
