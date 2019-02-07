@@ -15,17 +15,42 @@
         <p>{{ message }}</p>
     {% endfor %}
 
-    {{ form(form) }}
-    {#{{ form_row(form.tickets) }}#}
-    {#{{ form_start(form) }}#}
+    {#{{ form(form) }}#}
+
+    {{ form_start(form) }}
+
+    {{ form_errors(form) }}
+    <div class="container-fluid">
+        <div class="row">
+            {{ form_row(form.visitDate) }}
+
+            {{ form_row(form.duration) }}
+
+            {{ form_row(form.bookingEmail) }}
+        </div>
+
+        {{ form_row(form.tickets, {'attr': {'class': 'row'}}) }}
+
+    {#<div class="tickets" data-prototype="<div class=&quot;ticket&quot;>#}
+        {#<h3>Ticket n°__name__label__</h3>#}
+        {#{{ form_row(form.tickets.vars.prototype.visitorFirstName)|e }}#}
+        {#{{ form_row(form.tickets.vars.prototype.visitorName)|e }}#}
+        {#{{ form_row(form.tickets.vars.prototype.visitorBirthDate)|e }}#}
+        {#{{ form_row(form.tickets.vars.prototype.discount)|e }}#}
+        {#{{ form_row(form.tickets.vars.prototype.country)|e }}#}
+        {#</div>">#}
+    {#</div>#}
+    </div>
 
 
-    {#<input type="submit" value="Réserver">#}
+    {{ form_rest(form) }}
 
-    {#{{ form_end(form) }}#}
+    <input type="submit" value="Réserver">
+
+    {{ form_end(form) }}
 
 
-    <a href="#" id="add_ticket" class="btn btn-outline-primary">Ajouter un ticket</a>
+    <a href="#" id="add_ticket" class="btn btn-outline-secondary btn-sm">Ajouter un ticket</a>
 
 
 

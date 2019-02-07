@@ -50,8 +50,8 @@ class StripeController extends AbstractController
 
         \Stripe\Stripe::setApiKey($stripeKey);
 
-// Token is created using Checkout or Elements!
-// Get the payment token ID submitted by the form:
+        // Token is created using Checkout or Elements!
+        // Get the payment token ID submitted by the form:
         $token = $request->request->get('stripeToken');
 
         try {

@@ -21,7 +21,14 @@ header h1 {
     margin-bottom: 3em;
 }
 
+.ticketSolo {
+    padding: 1em;
+}
 
+.ticketSolo>div>h3 {
+    font-size: 1em;
+    text-align: center;
+}
 
 
 /* datepicker (visitDate) */

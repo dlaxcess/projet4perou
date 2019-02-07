@@ -17,16 +17,27 @@ class TicketType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('visitorFirstName', TextType::class)
-            ->add('visitorName', TextType::class)
+            ->add('visitorFirstName', TextType::class, array(
+                'attr' => ['class' => 'form-control-sm'],
+                'label' => 'Prénom',
+                'block_name' => 'visitorFirstName',
+            ))
+            ->add('visitorName', TextType::class, array(
+                'attr' => ['class' => 'form-control-sm'],
+                'label' => 'Nom',
+            ))
             ->add('visitorBirthDate', BirthdayType::class, array(
                 'widget' => 'choice',
                 'format' => 'ddMMyyyy',
                 'years' => range(1920,date('Y')),
                 'data' => new \DateTime('1990-01-01'),
                 'placeholder' => array(
-                    'day' => 'Day', 'month' => 'Month', 'year' => 'Year',
-                )
+                    'day' => 'Day',
+                    'month' => 'Month',
+                    'year' => 'Year',
+                ),
+                /*'attr' => ['class' => 'form-control-sm'],*/
+                'label' => 'Date de naissance',
             ))
             ->add('discount', EntityType::class, array(
                 'class'        => Discounts::class,
@@ -34,11 +45,15 @@ class TicketType extends AbstractType
                             return $discounts->getDiscountName() . ' : ' . $discounts->getDiscountDescription();
                             },
                 'multiple'     => false,
+                'attr' => ['class' => 'form-control-sm'],
+                'label' => 'Réduction',
                 'help' => 'Vous devrez présenter un justificatif correspondant à la réduction choisie à l\'entrée du musée pour en bénéficier ',
             ))
             ->add('country', CountryType::class, array(
                 'placeholder' => 'Indiquez votre pays',
                 'preferred_choices' => array('FR', 'GB'),
+                'attr' => ['class' => 'form-control-sm'],
+                'label' => 'Pays',
             ))
         ;
 
