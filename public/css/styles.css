@@ -25,7 +25,7 @@ header h1 {
     padding: 1em;
 }
 
-.ticketSolo>div>h3 {
+.ticketSolo h3 {
     font-size: 1em;
     text-align: center;
 }
