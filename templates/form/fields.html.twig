@@ -1,33 +1,28 @@
-
-
+{# ---------------------------------------- #}
+{# Overide des es champs de ticketOrderType #}
+{# ---------------------------------------- #}
 {% block _ticket_order_visitDate_row %}
-        <div class="col-md-4">
+        <div class="col-12 col-sm-4">
             {{ block('form_row') }}
         </div>
 {%  endblock %}
 
 {% block _ticket_order_duration_row %}
-    <div class="col-md-4">
+    <div class="col-12 col-sm-4">
         {{ block('form_row') }}
     </div>
 {%  endblock %}
 
 {% block _ticket_order_bookingEmail_row %}
-    <div class="col-md-4">
+    <div class="col-12 col-sm-4">
         {{ block('form_row') }}
     </div>
 {%  endblock %}
 
-{#{% block _ticket_order_ticket_visitorFirstName_row %}#}
-    {#<div class="row">#}
-        {#<div class="col-md-2">#}
-            {#{{ block('form_row') }}#}
-        {#</div>#}
-    {#</div>#}
-{#{%  endblock %}#}
 
-
+{# ------------------------------------------ #}
 {# Overide des selects du widget birthdayType #}
+{# ------------------------------------------ #}
 {% block date_widget -%}
     {%- if widget == 'single_text' -%}
         {{- block('form_widget_simple') -}}
@@ -57,16 +52,36 @@
 
 
 
+{# --------------------------------------------- #}
 {# Overide of tickets collection data-prototype  #}
+{# --------------------------------------------- #}
 {% block _ticket_order_tickets_entry_row %}
-    <div class="ticketSolo col-md-4">
-        <div class="card card-body bg-light">
-        <h3></h3>
-        {{ form_row(form.visitorFirstName) }}
-        {{ form_row(form.visitorName) }}
-        {{ form_row(form.visitorBirthDate) }}
-        {{ form_row(form.discount) }}
-        {{ form_row(form.country) }}
+    <div class="ticketSolo col-12 col-md-4">
+        <div class="container-fluid card card-body bg-light">
+            <div class="row">
+                <div class="col-12">
+                    <h3></h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-sm-6">
+                    {{ form_row(form.visitorFirstName) }}
+                </div>
+                <div class="col-12 col-sm-6">
+                    {{ form_row(form.visitorName) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    {{ form_row(form.visitorBirthDate) }}
+                </div>
+                <div class="col-12">
+                    {{ form_row(form.discount) }}
+                </div>
+                <div class="col-12">
+                    {{ form_row(form.country) }}
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}
