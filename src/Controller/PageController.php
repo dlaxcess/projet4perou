@@ -4,7 +4,6 @@ namespace App\Controller;
 
 
 
-use App\Entity\Ticket;
 use App\Entity\TicketOrder;
 use App\Form\TicketOrderType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,7 +11,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Services\TicketPriceGenerator;
-use App\Services\TicketOrderRefactorer;
 
 
 class PageController extends AbstractController
@@ -42,11 +40,6 @@ class PageController extends AbstractController
 
             $session->set('ticketOrder', $ticketOrder);
 
-//
-//
-//            $request->getSession()->getFlashBag()->add('notice', 'Commande bien enregistrée');
-//
-//            return $this->redirectToRoute('billetterie');
             return $this->redirectToRoute('prepareOrder');
 
         }
@@ -66,20 +59,4 @@ class PageController extends AbstractController
         return $this->render('pages/infos.html.twig');
     }
 
-    public function menu(Request $request)
-    {
-
-        $pageControllerMethods = get_class_methods($this);
-        $menuItems = array();
-
-        foreach ($pageControllerMethods as $menuItem) {
-            if ($menuItem == 'menu') {
-                break;
-            } else {
-                $menuItems[ucfirst(str_replace('_', ' ', $menuItem))] = 'app_page_' . $menuItem;
-            }
-        }
-
-        return $this->render('menu/menu.html.twig', ['menuItems' => $menuItems]);
-    }
 }

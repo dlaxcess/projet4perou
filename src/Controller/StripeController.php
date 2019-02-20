@@ -9,14 +9,9 @@
 namespace App\Controller;
 
 
-use App\Entity\Discounts;
-use App\Entity\Duration;
-use App\Repository\DiscountsRepository;
-use App\Repository\DurationRepository;
 use App\Services\StripeCheckout;
 use App\Services\TicketOrderRefactorer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -44,36 +39,10 @@ class StripeController extends AbstractController
     {
         $ticketOrder = $session->get('ticketOrder');
 
-//        $dotenv = new Dotenv();
-//        $dotenv->load(__DIR__.'/../../.env');
-//
-//        $stripeKey = getenv('STRIPE_KEY');
-//
-//        \Stripe\Stripe::setApiKey($stripeKey);
-
-        // Token is created using Checkout or Elements!
+        // Stripe Token is created using Checkout or Elements!
         // Get the payment token ID submitted by the form:
         $token = $request->request->get('stripeToken');
 
-//        try {
-//            \Stripe\Charge::create([
-//                'amount' => 100*$ticketOrder->getTotalPrice(),
-//                'currency' => 'eur',
-//                'description' => 'Paiement Stripe - Commande Billets Louvre',
-//                'source' => $token,
-//            ]);
-//            $this->addFlash("success","Le paiement de votre commande a bien été effectué, un mail récapitulatif de de votre commande a été envoyé à l'adresse renseignée.");
-//
-//            return $this->redirectToRoute("paymentSuccess");
-//
-//        } catch(\Stripe\Error\Card $e) {
-//            $this->addFlash("error","Une erreur est survenue pendant le paiement, veuillez renouveler l'opération");
-//
-//            return $this->redirectToRoute("prepareOrder");
-//
-//            // The card has been declined
-//
-//        }
         $paiementResult = $stripeCheckout->stripePay($ticketOrder, $token);
 
         $this->addFlash($paiementResult['notice'], $paiementResult['message']);
@@ -88,17 +57,7 @@ class StripeController extends AbstractController
     {
         $ticketOrder = $session->get('ticketOrder');
 
-//        dd($ticketOrder);
-
         if ($ticketOrder) {
-//            $duration = $this->getDoctrine()->getManager()->getRepository(Duration::class)->find($ticketOrder->getDuration()->getId());
-//            $ticketOrder->setDuration($duration);
-//
-//            $ticketCollection = $ticketOrder->getTickets();
-//            foreach ($ticketCollection as $ticket) {
-//                $discount = $this->getDoctrine()->getManager()->getRepository(Discounts::class)->find($ticket->getDiscount()->getId());
-//                $ticket->setDiscount($discount);
-//            }
 
             $ticketOrder = $ticketOrderRefactorer->refactorTicketOrder($ticketOrder);
 
