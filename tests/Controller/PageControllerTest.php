@@ -13,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class PageControllerTest extends WebTestCase
 {
-    public function testBilleterie()
+    public function testBilletterie()
     {
         $client = static::createClient();
 
