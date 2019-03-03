@@ -41,7 +41,7 @@ class Ticket
     private $discount;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="float", nullable=true)
      */
     private $ticketPrice;
 
@@ -83,12 +83,12 @@ class Ticket
         return $this;
     }
 
-    public function getTicketPrice(): ?int
+    public function getTicketPrice(): ?float
     {
         return $this->ticketPrice;
     }
 
-    public function setTicketPrice(int $ticketPrice): self
+    public function setTicketPrice(float $ticketPrice): self
     {
         $this->ticketPrice = $ticketPrice;
 
