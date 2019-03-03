@@ -26,21 +26,23 @@ class TicketOrderRefactorer
         $this->discountsRepo = $discountsRepo;
     }
 
-    public function refactorTicketOrder(TicketOrder $ticketOrder) {
+    public function refactorTicketOrder(TicketOrder $ticketOrder)
+    {
         $duration = $this->durationRepo->find($ticketOrder->getDuration()->getId());
         $ticketOrder->setDuration($duration);
 
         $this->discountsArray = $this->discountsRepo->findAll();
         $ticketCollection = $ticketOrder->getTickets();
 
-        /*$tab = ['normal' => $this->discountsArray[0]];*/
+        $discountTab = [
+            'Tarif normal' => $this->discountsArray[0],
+            'Tarif réduit' => $this->discountsArray[1],
+            'Coupon réduction' => $this->discountsArray[2],
+            'réduction de 10%' => $this->discountsArray[3],
+        ];
+
         foreach ($ticketCollection as $ticket) {
-            $ticket->setDiscount(/*$tab[$ticket->getDiscount()->getDiscountName()]*/$this->discountsArray[$ticket->getDiscount()->getId()-1]);
-//            foreach ($this->discountsArray as $discount) {
-//                if ($ticket->getDiscount() == $discount) {
-//                    $ticket->setDiscount($discount);
-//                }
-//            }
+            $ticket->setDiscount($discountTab[$ticket->getDiscount()->getDiscountName()]/*$this->discountsArray[$ticket->getDiscount()->getId()-1]*/);
         }
 
         return $ticketOrder;
