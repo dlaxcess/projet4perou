@@ -9,7 +9,6 @@
 namespace App\TwigExtention;
 
 
-use Symfony\Component\Intl\Intl;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
@@ -18,12 +17,7 @@ class CountryExtension extends AbstractExtension
     public function getFilters()
     {
         return [
-            new TwigFilter('country', [$this, 'countryName']),
+            new TwigFilter('country', [CountryRuntime::class, 'countryName']),
         ];
-    }
-
-    public function countryName($countryCode)
-    {
-        return Intl::getRegionBundle()->getCountryName($countryCode);
     }
 }

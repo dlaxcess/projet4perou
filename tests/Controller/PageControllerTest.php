@@ -20,6 +20,13 @@ class PageControllerTest extends WebTestCase
         $client->request('GET', '/billetterie');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+        $crawler = $client->request('GET', '/billetterie');
+
+        $this->assertGreaterThan(
+            0,
+            $crawler->filter('html:contains("billetterie")')->count()
+        );
     }
 
 }
