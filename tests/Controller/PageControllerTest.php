@@ -21,6 +21,8 @@ class PageControllerTest extends WebTestCase
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
+        /*echo $client->getResponse()->getContent();*/
+
         $crawler = $client->request('GET', '/billetterie');
 
         $this->assertGreaterThan(
