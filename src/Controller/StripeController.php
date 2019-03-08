@@ -30,7 +30,7 @@ class StripeController extends AbstractController
 
     /**
      * @Route(
-     *     "/billetterie/chekoutOrder",
+     *     "/billetterie/checkoutOrder",
      *     name="order_checkout",
      *     methods="POST"
      * )
