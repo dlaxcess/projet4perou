@@ -48,7 +48,6 @@ class TicketPriceGeneratorTest extends WebTestCase
             ->setDiscountName('Tarif normal')
             ->setDiscountValue(null);
 
-        /*$birthDate = new \DateTime('1981-11-03');*/
 
         $testTicket1
             ->setVisitorFirstName('phil')

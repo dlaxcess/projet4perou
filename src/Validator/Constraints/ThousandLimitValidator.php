@@ -16,13 +16,13 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 class ThousandLimitValidator extends ConstraintValidator
 {
-    private $ticketOrderRepository;
+    /*private $ticketOrderRepository;*/
     private $ticketRepository;
     private $selectedDateTicketAmount = 0;
 
-    public function __construct(EntityManagerInterface $em, TicketRepository $ticketRepo)
+    public function __construct(/*EntityManagerInterface $em, */TicketRepository $ticketRepo)
     {
-        $this->ticketOrderRepository = $em->getRepository('App:TicketOrder');
+        /*$this->ticketOrderRepository = $em->getRepository('App:TicketOrder');*/
         $this->ticketRepository = $ticketRepo;
     }
 
@@ -35,14 +35,6 @@ class ThousandLimitValidator extends ConstraintValidator
         $this->selectedDateTicketAmount += $this->context->getObject()->getTickets()->count();
 
         $this->selectedDateTicketAmount += $this->ticketRepository->getOneDateTicketAmount($value);
-
-//        $selectedDateTicketOrderArray = $this->ticketOrderRepository->findByVisitDate($value);
-//
-//        if ($selectedDateTicketOrderArray) {
-//            foreach ($selectedDateTicketOrderArray as $selectedDateTicketOrder) {
-//                $this->selectedDateTicketAmount += $selectedDateTicketOrder->getTickets()->count();
-//            }
-//        }
 
         if (1000 < $this->selectedDateTicketAmount) {
             $this->context->buildViolation($constraint->message)
