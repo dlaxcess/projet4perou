@@ -44,11 +44,7 @@ class PageController extends AbstractController
 
         }
 
-        $dateJourModif = new \DateTime();
-        $dateJourModif->setTime(14, 0);
-        $dateJour = new \DateTime('now', new \DateTimeZone('America/Argentina/Ushuaia'));
-
-        return $this->render('pages/billetterie.html.twig', ['form' => $form->createView(), 'dateJour' => $dateJour, 'dateJourModif' => $dateJourModif]);
+        return $this->render('pages/billetterie.html.twig', ['form' => $form->createView()]);
     }
 
     /**

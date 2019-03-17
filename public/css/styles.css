@@ -30,6 +30,12 @@ header h1 {
     text-align: center;
 }
 
+.birthdateInline {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+}
+
 
 /* datepicker (visitDate) */
 .datepicker {

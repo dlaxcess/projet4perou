@@ -36,7 +36,6 @@ class TicketType extends AbstractType
                     'month' => 'Month',
                     'year' => 'Year',
                 ),
-                /*'attr' => ['class' => 'form-control-sm'],*/
                 'label' => 'Date de naissance',
             ))
             ->add('discount', EntityType::class, array(

@@ -40,9 +40,9 @@
         {%- endif -%}
 
         {{- date_pattern|replace({
-            '{{ year }}': form_widget(form.year, {'attr' : {'class' : 'form-control-sm'}}),
-            '{{ month }}': form_widget(form.month, {'attr' : {'class' : 'form-control-sm'}}),
-            '{{ day }}': form_widget(form.day, {'attr' : {'class' : 'form-control-sm'}}),
+            '{{ year }}': form_widget(form.year, {'attr' : {'class' : 'form-control-sm birthdateInline'}}),
+            '{{ month }}': form_widget(form.month, {'attr' : {'class' : 'form-control-sm birthdateInline'}}),
+            '{{ day }}': form_widget(form.day, {'attr' : {'class' : 'form-control-sm birthdateInline'}}),
         })|raw -}}
         {%- if datetime is not defined or not datetime -%}
             </div>
