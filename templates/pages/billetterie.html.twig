@@ -9,37 +9,43 @@
 {% endblock %}
 
 {% block body %}
-    <h1 class="well">Ceci est la page de billetterie {{ app.request.attributes.get('_route') }}</h1>
+    <div class="col-12">
+        <h1 class="well">Ceci est la page de billetterie {{ app.request.attributes.get('_route') }}</h1>
 
-    {% for message in app.session.flashbag.get('notice') %}
-        <p>{{ message }}</p>
-    {% endfor %}
+        {% for message in app.session.flashbag.get('notice') %}
+            <p>{{ message }}</p>
+        {% endfor %}
 
-    {{ form_start(form) }}
+        {{ form_start(form) }}
 
-    {{ form_errors(form) }}
-    <div class="container-fluid">
-        <div class="row">
-            {{ form_row(form.visitDate) }}
-
-            {{ form_row(form.duration) }}
-
-            {{ form_row(form.bookingEmail) }}
-        </div>
-
-        {{ form_row(form.tickets, {'attr': {'class': 'row'}}) }}
-
+        {{ form_errors(form) }}
     </div>
+    <div class="col-12">
+        <div class="container-fluid">
+            <div class="row">
+                {{ form_row(form.visitDate) }}
 
-    {{ form_rest(form) }}
+                {{ form_row(form.duration) }}
 
-    <input type="submit" value="Réserver">
+                {{ form_row(form.bookingEmail) }}
+            </div>
 
-    {{ form_end(form) }}
+            {{ form_row(form.tickets, {'attr': {'class': 'row'}}) }}
 
+        </div>
+    </div>
+    <div class="col-12 col-sm-auto">
 
-    <a href="#" id="add_ticket" class="btn btn-outline-secondary btn-sm">Ajouter un ticket</a>
+        {{ form_rest(form) }}
 
+        <input type="submit" value="Réserver">
+
+        {{ form_end(form) }}
+    </div>
+    <div class="col-12 col-sm-auto">
+
+        <a href="#" id="add_ticket" class="btn btn-outline-secondary btn-sm">Ajouter un ticket</a>
+    </div>
 {% endblock %}
 
 {% block javascripts %}
