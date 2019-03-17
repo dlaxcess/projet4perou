@@ -14,15 +14,11 @@ use App\Entity\Duration;
 use App\Entity\Ticket;
 use App\Entity\TicketOrder;
 use App\Repository\TicketRepository;
-use App\Validator\Constraints\ThousandLimit;
 use App\Validator\Constraints\ThousandLimitValidator;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
 class ThousandLimitValidatorTest extends ConstraintValidatorTestCase
 {
-    private $ticketOrderTab = [];
-
     public function createValidator()
     {
         $ticketRepo = $this->createMock(TicketRepository::class);
@@ -67,16 +63,10 @@ class ThousandLimitValidatorTest extends ConstraintValidatorTestCase
             ->setBookingEmail('flipiste@free.fr')
             ->addTicket($testTicket)
             ->addTicket($testTicket2);
-        /*
-        for ($i = 0; $i < 1000; $i++) {
-            $this->ticketOrderTab[] = $ticketOrder;
-        }*/
 
         $this->setObject($ticketOrder);
         $this->validator->validate(new \DateTime(date('Y-m-d', strtotime('+1 day'))), $this->constraint);
-        /*$this->doesNotPerformAssertions();*/
-        /*$this->buildViolation(new ThousandLimit()->assertRaised());*/
-        /*$this->assertNoViolation();*/
+
         $this->assertSame(1, $violationsCount = \count($this->context->getViolations()), sprintf('1 violation expected. Got %u.', $violationsCount));
 
     }
@@ -105,16 +95,10 @@ class ThousandLimitValidatorTest extends ConstraintValidatorTestCase
             ->setDuration($ticketOrderDuration)
             ->setBookingEmail('flipiste@free.fr')
             ->addTicket($testTicket);
-        /*
-        for ($i = 0; $i < 1000; $i++) {
-            $this->ticketOrderTab[] = $ticketOrder;
-        }*/
 
         $this->setObject($ticketOrder);
         $this->validator->validate(new \DateTime(date('Y-m-d', strtotime('+1 day'))), $this->constraint);
-        /*$this->doesNotPerformAssertions();*/
-        /*$this->buildViolation(new ThousandLimit()->assertRaised());*/
-        $this->assertNoViolation();
 
+        $this->assertNoViolation();
     }
 }

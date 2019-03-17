@@ -10,19 +10,16 @@ namespace App\Validator\Constraints;
 
 
 use App\Repository\TicketRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
 class ThousandLimitValidator extends ConstraintValidator
 {
-    /*private $ticketOrderRepository;*/
     private $ticketRepository;
     private $selectedDateTicketAmount = 0;
 
-    public function __construct(/*EntityManagerInterface $em, */TicketRepository $ticketRepo)
+    public function __construct(TicketRepository $ticketRepo)
     {
-        /*$this->ticketOrderRepository = $em->getRepository('App:TicketOrder');*/
         $this->ticketRepository = $ticketRepo;
     }
 
