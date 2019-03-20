@@ -35,18 +35,14 @@ class TicketOrderType extends AbstractType
             ))
             ->add('bookingEmail', EmailType::class, array(
                 'attr' => ['class' => 'form-control-sm'],
-                'label' => 'Email relatif à la commande',
+                'label' => 'Email de la commande',
             ))
             ->add('tickets', CollectionType::class, array(
                 'entry_type'   => TicketType::class,
                 'allow_add'    => true,
                 'allow_delete' => true,
                 'by_reference' => false,
-                /*'attr' => ['class' => 'form-control-sm'],*/
-                /*'block_name' => 'tickets',*/
-                /*'label' => false,*/
             ))
-            /*->add('réserver', SubmitType::class)*/
         ;
     }
 

@@ -15,13 +15,20 @@ header h1 {
     /*padding-bottom: 10px;*/
 }
 
-
 #pageContainer {
     padding: 0 15px 0 15px;
-    margin-top: 10em;
+    margin-top: 8em;
     margin-bottom: 3em;
 }
 
+.pageTitle h2 {
+    font-family: Ubuntu;
+    font-size: 2em;
+}
+
+/**************************/
+/*        TICKETS         */
+/**************************/
 .ticketSolo {
     padding: 1em;
 }
@@ -37,15 +44,32 @@ header h1 {
     vertical-align: middle;
 }
 
-
+/**************************/
 /* datepicker (visitDate) */
+/**************************/
 .datepicker {
     z-index: 2000!important;
 }
 
+/**************************/
+/*     MEDIA QUERIES      */
+/**************************/
+@media screen and (max-width: 605px) {
+    #pageContainer {
+        margin-top: 7em;
+    }
 
-@media (max-width: 540px) {
     header h1 {
         font-size: 5vw;
+    }
+
+    .pageTitle h2 {
+        font-size: 4.5vw;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    #add_ticket {
+        margin-top: 1em;
     }
 }

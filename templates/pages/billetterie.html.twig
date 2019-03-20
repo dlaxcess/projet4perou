@@ -9,42 +9,49 @@
 {% endblock %}
 
 {% block body %}
-    <div class="col-12">
-        <h1 class="well">Ceci est la page de billetterie {{ app.request.attributes.get('_route') }}</h1>
+    <div  class="row">
+        <div class="pageTitle col-12">
 
-        {% for message in app.session.flashbag.get('notice') %}
-            <p>{{ message }}</p>
-        {% endfor %}
+            <h2 class="well">Billetterie du Musée du Louvre</h2>
 
-        {{ form_start(form) }}
+            {% for message in app.session.flashbag.get('notice') %}
+                <p>{{ message }}</p>
+            {% endfor %}
 
-        {{ form_errors(form) }}
-    </div>
-    <div class="col-12">
-        <div class="container-fluid">
-            <div class="row">
-                {{ form_row(form.visitDate) }}
+            {{ form_start(form) }}
 
-                {{ form_row(form.duration) }}
-
-                {{ form_row(form.bookingEmail) }}
-            </div>
-
-            {{ form_row(form.tickets, {'attr': {'class': 'row'}}) }}
-
+            {{ form_errors(form) }}
         </div>
     </div>
-    <div class="col-12 col-sm-auto">
+    <div  class="row">
+        <div class="col-12">
+            <div class="container-fluid">
+                <div class="row align-items-end">
+                    {{ form_row(form.visitDate) }}
 
-        {{ form_rest(form) }}
+                    {{ form_row(form.duration) }}
 
-        <input type="submit" value="Réserver">
+                    {{ form_row(form.bookingEmail) }}
+                </div>
 
-        {{ form_end(form) }}
+                {{ form_row(form.tickets, {'attr': {'class': 'row'}}) }}
+
+            </div>
+        </div>
     </div>
-    <div class="col-12 col-sm-auto">
+    <div  class="row">
+        <div class="col-12 col-sm-auto">
 
-        <a href="#" id="add_ticket" class="btn btn-outline-secondary btn-sm">Ajouter un ticket</a>
+            {{ form_rest(form) }}
+
+            <input type="submit" value="Réserver">
+
+            {{ form_end(form) }}
+        </div>
+        <div class="col-12 col-sm-auto">
+
+            <a href="#" id="add_ticket" class="btn btn-outline-secondary btn-sm">Ajouter un ticket</a>
+        </div>
     </div>
 {% endblock %}
 
