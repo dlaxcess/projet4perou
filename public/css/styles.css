@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Ubuntu');
 
+body {
+    font-family: Ubuntu;
+}
+
 header {
     background-image: url("../images/header-background.jpg");
     background-size: cover/*100% 100%*/;
@@ -42,6 +46,17 @@ header h1 {
     display: inline-block;
     width: auto;
     vertical-align: middle;
+}
+
+/**************************/
+/* HOMEPAGE & INFOS PRAT  */
+/**************************/
+.homepageTxt h3, #infosPratiquesTxt h3 {
+    font-size: 1.5em;
+}
+
+.homepageTxt p {
+    text-align: justify;
 }
 
 /**************************/
