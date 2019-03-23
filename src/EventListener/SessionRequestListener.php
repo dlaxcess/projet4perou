@@ -10,6 +10,7 @@ namespace App\EventListener;
 
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
 class SessionRequestListener
@@ -23,16 +24,20 @@ class SessionRequestListener
     public function onKernelRequest(GetResponseEvent $event)
     {
         $request =$event->getRequest();
-        $route = $request->getPathInfo();
 
-        if (in_array($route, self::LISTENED_PATHS)){
-            if ($request->hasPreviousSession() && null != $request->getSession()->get('ticketOrder')){
+        if (!$this->support($request)) {
 
-                return;
-            }else{
-                $response = new RedirectResponse('/billetterie');
-                $event->setResponse($response);
-            }
+            return;
         }
+
+        if (!$request->hasPreviousSession() || null == $request->getSession()->get('ticketOrder')){
+            $response = new RedirectResponse('/billetterie');
+            $event->setResponse($response);
+        }
+    }
+
+    public function support(Request $request)
+    {
+        return in_array($request->getPathInfo(), self::LISTENED_PATHS);
     }
 }

@@ -27,7 +27,7 @@ class PageControllerTest extends WebTestCase
 
         $this->assertGreaterThan(
             0,
-            $crawler->filter('html:contains("billetterie")')->count()
+            $crawler->filter('html:contains("Billetterie")')->count()
         );
     }
 
