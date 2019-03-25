@@ -13,30 +13,24 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class StripeControllerTest extends WebTestCase
 {
-    public function testPrepareStripeOrder()
+    /**
+     * @dataProvider provideUrls
+     */
+    public function testStripeRedirection($url)
     {
         $client = static::createClient();
 
-        $client->request('GET', '/billetterie/prepareOrder');
+        $client->request('GET', $url);
 
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
     }
-
-    public function testCheckoutOrder()
+    
+    public function provideUrls()
     {
-        $client = static::createClient();
-
-        $client->request('GET', '/billetterie/checkoutOrder');
-
-        $this->assertEquals(302, $client->getResponse()->getStatusCode());
-    }
-
-    public function testPaymentSuccess()
-    {
-        $client = static::createClient();
-
-        $client->request('GET', '/billetterie/StripePaiementSucces');
-
-        $this->assertEquals(302, $client->getResponse()->getStatusCode());
+        return [
+            ['/billetterie/prepareOrder'],
+            ['/billetterie/checkoutOrder'],
+            ['/billetterie/StripePaiementSucces'],
+        ];
     }
 }
