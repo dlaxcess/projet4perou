@@ -24,7 +24,7 @@ class StripeControllerTest extends WebTestCase
 
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
     }
-    
+
     public function provideUrls()
     {
         return [

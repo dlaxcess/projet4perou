@@ -18,15 +18,19 @@
                 <p>{{ message }}</p>
             {% endfor %}
 
-            {{ form_start(form) }}
+            {#{{ form_start(form) }}
 
-            {{ form_errors(form) }}
+            {{ form_errors(form) }}#}
         </div>
     </div>
     <div  class="row">
         <div class="col-12">
             <div class="container-fluid">
+                {{ form_start(form) }}
+
+                {{ form_errors(form) }}
                 <div class="row align-items-end">
+
                     {{ form_row(form.visitDate) }}
 
                     {{ form_row(form.duration) }}
@@ -35,7 +39,6 @@
                 </div>
 
                 {{ form_row(form.tickets, {'attr': {'class': 'row'}}) }}
-
             </div>
         </div>
     </div>

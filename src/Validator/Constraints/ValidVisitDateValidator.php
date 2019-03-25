@@ -22,8 +22,9 @@ class ValidVisitDateValidator extends ConstraintValidator
         /* Not Sunday Validator */
         $weekDay = date('D', $value->getTimestamp());
 
-        if ('Sun' == $weekDay) {
+        if ('Sun' == $weekDay || 'Tue' == $weekDay) {
             $this->context->buildViolation($constraint->messageSun)
+                ->setParameter('{{ visitDate }}', ($weekDay == 'Sun') ? 'dimanche' : 'mardi')
                 ->addViolation();
         }
 

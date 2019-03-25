@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
 
 class TicketType extends AbstractType
 {
@@ -25,6 +26,9 @@ class TicketType extends AbstractType
             ->add('visitorName', TextType::class, array(
                 'attr' => ['class' => 'form-control-sm'],
                 'label' => 'Nom',
+                'constraints' => [
+                    new Length(['min' => 2, 'minMessage' => 'Vous devez entrer au moins {{ limit }} caractères']),
+                    ],
             ))
             ->add('visitorBirthDate', BirthdayType::class, array(
                 'widget' => 'choice',

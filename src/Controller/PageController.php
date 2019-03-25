@@ -33,7 +33,7 @@ class PageController extends AbstractController
         $form = $this->createForm(TicketOrderType::class, $ticketOrder);
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-
+            /*dd($ticketOrder);*/
             $ticketPriceGenerator->setTicketCollectionPrices($ticketOrder);
 
             $ticketOrder->setTotalPrice($ticketPriceGenerator->getTotalOrderPrice());

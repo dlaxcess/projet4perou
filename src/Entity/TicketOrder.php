@@ -37,6 +37,7 @@ class TicketOrder
      * @Assert\GreaterThanOrEqual("today midnight", message = "Vous ne pouvez réserver un billet avant le {{ compared_value }}")
      * @ValidVisitDate()
      * @ThousandLimit()
+     * @Assert\NotBlank()
      */
     private $visitDate;
 
@@ -49,6 +50,8 @@ class TicketOrder
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Email(message="'{{ value }}' n'est pas une adresse valide")
+     * @Assert\NotBlank()
      */
     private $bookingEmail;
 
