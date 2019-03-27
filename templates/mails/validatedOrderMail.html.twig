@@ -1,1 +1,23 @@
-{{ ticketOrder.bookingCode }}
+Récapitulatif de votre commande n°: {{ ticketOrder.bookingCode }}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12">
+            <p>Vous avez réservé {{ ticketOrder.tickets|length }} ticket(s).</p>
+            <p>Date de visite : {{ ticketOrder.visitDate|date('d/m/Y') }}</p>
+            <p>Durée de la visite : {% if ticketOrder.duration.name == "day" %}Journée{% else %}Demie journée{% endif %}</p>
+            <p>Prix total de la commande : {{ ticketOrder.totalPrice }} euros</p>
+        </div>
+    </div>
+    <div class="row">
+        {% for ticket in ticketOrder.tickets %}
+            <div class="col-xs-12 col-md-4 card card-body bg-light">
+                Identité du visiteur : {{ ticket.visitorFirstName }} {{ ticket.visitorName }}<br>
+                Age du visiteur : {{ date(ticketOrder.orderDate).diff(ticket.visitorBirthdate).y }}<br>
+                Réduction : {{ ticket.discount.discountDescription }}<br>
+                Pays : {{ ticket.country|country }}<br>
+                Prix du ticket : {{ ticket.ticketPrice }}<br>
+            </div>
+        {% endfor %}
+    </div>
+</div>

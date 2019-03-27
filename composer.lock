@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f87c875be61e55117793edaa3e966e4e",
+    "content-hash": "101856feac4cf3ed527e89d7631f6ae0",
     "packages": [
         {
             "name": "behat/transliterator",
