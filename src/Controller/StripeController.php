@@ -68,7 +68,7 @@ class StripeController extends AbstractController
             $session->clear();
 
             // Envoi du mail Récap
-            $message = (new \Swift_Message('Commande n°' . $ticketOrder->getBookingCode()))
+            $message = (new \Swift_Message('Musée du Louvre Commande n°' . $ticketOrder->getBookingCode()))
                 ->setFrom('contact.philippe.perou@gmail.com')
                 ->setTo($ticketOrder->getBookingEmail());
 
