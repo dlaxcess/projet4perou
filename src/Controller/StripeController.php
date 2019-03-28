@@ -70,15 +70,19 @@ class StripeController extends AbstractController
             // Envoi du mail Récap
             $message = (new \Swift_Message('Commande n°' . $ticketOrder->getBookingCode()))
                 ->setFrom('contact.philippe.perou@gmail.com')
-                ->setTo($ticketOrder->getBookingEmail())
-                ->setBody(
+                ->setTo($ticketOrder->getBookingEmail());
+
+            $logoLouvre = $message->embed(\Swift_Image::fromPath('images/logo_louvre.jpg'));
+
+            $message->setBody(
                     $this->renderView(
-                        'mails/validatedOrderMail.html.twig',
-                        array('ticketOrder' => $ticketOrder)
+                        'mails/validatedOrderMail.html.twig', [
+                            'ticketOrder' => $ticketOrder,
+                            'logoLouvre' => $logoLouvre,
+                        ]
                     ),
                     'text/html'
-                )
-            ;
+                );
 
             $mailer->send($message);
         }

@@ -29,7 +29,7 @@ class TicketOrderType extends AbstractType
             ->add('duration', EntityType::class, array(
                 'class' => Duration::class,
                 'choice_label' => /*'name'*/function(Duration $duration){
-                    return ($duration->getName() == 'day') ? 'Journée' : 'Demie journée';
+                    return $duration->translateDuration();
                 },
                 'multiple' => false,
                 'attr' => ['class' => 'form-control-sm'],

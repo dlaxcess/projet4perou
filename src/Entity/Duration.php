@@ -39,4 +39,9 @@ class Duration
 
         return $this;
     }
+
+    public function translateDuration()
+    {
+        return ($this->getName() == 'day') ? 'Journée' : 'Demi-journée';
+    }
 }

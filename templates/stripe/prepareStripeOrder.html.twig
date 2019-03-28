@@ -13,7 +13,7 @@
             <div class="col-xs-12">
                 <p>Vous êtes sur le point de réserver {{ ticketOrder.tickets|length }} ticket(s).</p>
                 <p>Date de visite : {{ ticketOrder.visitDate|date('d/m/Y') }}</p>
-                <p>Durée de la visite : {% if ticketOrder.duration.name == "day" %}Journée{% else %}Demie journée{% endif %}</p>
+                <p>Durée de la visite : {{ ticketOrder.duration.translateDuration }}</p>
                 <p>Prix total de la commande : {{ ticketOrder.totalPrice }} euros</p>
             </div>
         </div>
@@ -33,7 +33,7 @@
     <form action="{{ path('order_checkout') }}" method="POST">
         <script
                 src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                data-key="pk_test_PH40Dvq2u7OBi6C3oA2rvZXe"
+                data-key="{{ stripe_public_key }}"
                 data-amount="{{ 100*ticketOrder.totalPrice }}"
                 data-name="Louvre"
                 data-description="Paiement de votre commande"

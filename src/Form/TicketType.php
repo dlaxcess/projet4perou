@@ -26,9 +26,6 @@ class TicketType extends AbstractType
             ->add('visitorName', TextType::class, array(
                 'attr' => ['class' => 'form-control-sm'],
                 'label' => 'Nom',
-                'constraints' => [
-                    new Length(['min' => 2, 'minMessage' => 'Vous devez entrer au moins {{ limit }} caractères']),
-                    ],
             ))
             ->add('visitorBirthDate', BirthdayType::class, array(
                 'widget' => 'choice',
@@ -47,7 +44,7 @@ class TicketType extends AbstractType
                 'choice_label' => function(Discounts $discounts) {
                             return $discounts->getDiscountName() . ' : ' . $discounts->getDiscountDescription();
                             },
-                'multiple'     => false,
+                'multiple' => false,
                 'attr' => ['class' => 'form-control-sm'],
                 'label' => 'Réduction',
                 'help' => 'Vous devrez présenter un justificatif correspondant à la réduction choisie à l\'entrée du musée pour en bénéficier ',

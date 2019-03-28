@@ -19,7 +19,7 @@ class Ticket
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\NotBlank()
+     * @Assert\Length(min=2, minMessage="Vous devez entrer au moins {{ limit }} caractères")
      */
     private $visitorFirstName;
 
