@@ -49,6 +49,22 @@ header h1 {
 }
 
 /**************************/
+/*    PREPARE TICKETS     */
+/**************************/
+.prepareTickets {
+    margin-bottom: 1em;
+}
+
+.prepareTicket {
+    padding: 15px;
+    height: 100%;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+/**************************/
 /* HOMEPAGE & INFOS PRAT  */
 /**************************/
 .homepageTxt h3, #infosPratiquesTxt h3 {

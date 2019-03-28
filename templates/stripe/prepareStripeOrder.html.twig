@@ -11,20 +11,22 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-12">
-                <p>Vous êtes sur le point de réserver {{ ticketOrder.tickets|length }} ticket(s).</p>
-                <p>Date de visite : {{ ticketOrder.visitDate|date('d/m/Y') }}</p>
-                <p>Durée de la visite : {{ ticketOrder.duration.translateDuration }}</p>
-                <p>Prix total de la commande : {{ ticketOrder.totalPrice }} euros</p>
+                <p>Vous êtes sur le point de réserver <b>{{ ticketOrder.tickets|length }} ticket(s).</b></p>
+                <p><b>Date de visite :</b> {{ ticketOrder.visitDate|date('d/m/Y') }}</p>
+                <p><b>Durée de la visite :</b> {{ ticketOrder.duration.translateDuration }}</p>
+                <p><b>Prix total de la commande :</b> {{ ticketOrder.totalPrice }} euros</p>
             </div>
         </div>
         <div class="row">
             {% for ticket in ticketOrder.tickets %}
-                <div class="col-xs-12 col-md-4 card card-body bg-light">
-                    Identité du visiteur : {{ ticket.visitorFirstName }} {{ ticket.visitorName }}<br>
-                    Age du visiteur : {{ date(ticketOrder.orderDate).diff(ticket.visitorBirthdate).y }}<br>
-                    Réduction : {{ ticket.discount.discountDescription }}<br>
-                    Pays : {{ ticket.country|country }}<br>
-                    Prix du ticket : {{ ticket.ticketPrice }}<br>
+                <div class="prepareTickets col-xs-12 col-md-4">
+                    <div class="prepareTicket card card-body bg-light">
+                        <p><span class="bold">Identité du visiteur :</span> {{ ticket.visitorFirstName }} {{ ticket.visitorName }}<br>
+                            <span class="bold">Age du visiteur :</span> {{ date(ticketOrder.orderDate).diff(ticket.visitorBirthdate).y }}<br>
+                            <span class="bold">Réduction :</span> {{ ticket.discount.discountDescription }}<br>
+                            <span class="bold">Pays :</span> {{ ticket.country|country }}<br>
+                            <span class="bold">Prix du ticket :</span> {{ ticket.ticketPrice }}</p>
+                    </div>
                 </div>
             {% endfor %}
         </div>

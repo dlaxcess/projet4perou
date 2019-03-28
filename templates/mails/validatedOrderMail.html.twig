@@ -2,32 +2,34 @@
     <head>
         <style type="text/css">
             body {
-                max-width: 900px;
-                /*width: 100%;*/
+
             }
 
             #container {
-                width: 100%;
+
             }
 
             #louvreMessage {
-                width: 100%;
+
             }
 
             #order {
-                width: 100%;
+
+            }
+
+            h1, h2 {
+                color: firebrick;
             }
 
             #mailTickets {
-                display: flex;
-                flex-wrap: wrap;
-                width: 100%;
+                /*display: flex;flex-wrap: wrap;
+                width: 800px;*/
             }
 
             .mailSoloTicket {
-                background-color: lightsalmon;
+                border: 1px solid #9d9d9d;
                 border-radius: 5px;
-                flex: 1 1 250px;
+                width: 400px;
                 margin: 0 2% 1.5em 0;
                 padding: 1em;
             }
@@ -51,7 +53,10 @@
             <p><b>Prix total de la commande :</b> {{ ticketOrder.totalPrice }} euros</p>
         </div>
 
+        <h2>Détail des tickets :</h2>
         <div id="mailTickets">
+
+
             {% for ticket in ticketOrder.tickets %}
                 <div class="mailSoloTicket">
                     <b>Identité du visiteur :</b> {{ ticket.visitorFirstName }} {{ ticket.visitorName }}<br>
