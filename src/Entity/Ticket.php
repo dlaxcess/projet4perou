@@ -47,11 +47,6 @@ class Ticket
     private $ticketPrice;
 
     /**
-     * @ORM\Column(name="booked", type="boolean")
-     */
-    private $booked =false;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\TicketOrder", inversedBy="tickets")
      */
     private $ticketOrder;
@@ -128,18 +123,6 @@ class Ticket
     public function setVisitorName(string $visitorName): self
     {
         $this->visitorName = $visitorName;
-
-        return $this;
-    }
-
-    public function getBooked(): ?bool
-    {
-        return $this->booked;
-    }
-
-    public function setBooked(bool $booked): self
-    {
-        $this->booked = $booked;
 
         return $this;
     }
